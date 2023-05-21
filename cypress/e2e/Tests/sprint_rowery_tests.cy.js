@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import SprintPage from "../../support/SprintPage.js";
+import jsonFile from "../../fixtures/search.json";
 
 const Sprint = new SprintPage();
 
@@ -10,6 +11,7 @@ Cypress.Commands.add("ConfirmPopUpAndScroll", () => {
 
 beforeEach("Setup", () => {
 	cy.visit("/");
+	cy.wait(500);
 	cy.url().should("contain", "sprint-rowery");
 	cy.url().should("equal", "https://sprint-rowery.pl/");
 });
@@ -72,13 +74,13 @@ describe("Open navigation links sprint-rowery bottom menu section", () => {
 describe("Searchers", () => {
 	it("search and go to Czapka Trek Red Patch in sprint-rowery with {enter}", () => {
 		Sprint.getConfirmPopUp().click();
-		cy.get("#search").clear().type("Czapka Trek Red Patch").type("{enter}");
+		cy.get("#search").clear().type(jsonFile[0].mySearch).type("{enter}");
 		cy.url().should("contain", "czapka-trek-red-patch");
 	});
 
 	it("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability eq", () => {
 		Sprint.getConfirmPopUp().click();
-		cy.get("#search").clear().type("czapka-trek").wait(1000);
+		cy.get("#search").clear().type(jsonFile[1].mySearch).wait(1000);
 		cy.get(".searchautocomplete__index-magento_catalog_product > ul > li")
 			.eq(0)
 			.click();
@@ -87,7 +89,7 @@ describe("Searchers", () => {
 
 	it("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability children ", () => {
 		Sprint.getConfirmPopUp().click();
-		cy.get("#search").clear().type("czapka-trek").wait(1000);
+		cy.get("#search").clear().type(jsonFile[1].mySearch).wait(1000);
 		cy.get(".searchautocomplete__index-magento_catalog_product")
 			.children()
 			.children()
@@ -98,7 +100,7 @@ describe("Searchers", () => {
 
 	it.skip("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability children and eq", () => {
 		Sprint.getConfirmPopUp().click();
-		cy.get("#search").clear().type("czapka-trek").wait(1000);
+		cy.get("#search").clear().type(jsonFile[1].mySearch).wait(1000);
 		cy.get(".searchautocomplete__index-magento_catalog_product > ul")
 			.children()
 			.eq(0)

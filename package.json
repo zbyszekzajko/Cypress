@@ -3,7 +3,7 @@
 		"cypress": "^12.10.0"
 	},
 	"scripts": {
-		"cypress:runChrome": "cypress run --browser chrome --spec cypress/e2e/Tests/roweroza_tests.cy.js",
-		"cypress:runChromeCloud": "cypress run --browser chrome --spec cypress/e2e/Tests/roweroza_tests.cy.js --record --key 8eec8078-9a7e-473d-9625-ffd3193cbdce"
+		"cypress:runChrome": "cypress run --browser chrome --spec cypress/e2e/Tests/sprint_rowery_tests.cy.js",
+		"cypress:runChromeCloud": "cypress run --browser chrome --spec cypress/e2e/Tests/sprint_rowery_tests.cy.js --record --key 3a15e987-fee4-43a3-88d0-1fd857a50f16"
 	}
 }
