@@ -11,7 +11,7 @@ Cypress.Commands.add("ConfirmPopUpAndScroll", () => {
 
 beforeEach("Setup", () => {
 	cy.visit("/");
-	cy.wait(500);
+	//cy.wait(500);
 	cy.url().should("contain", "sprint-rowery");
 	cy.url().should("equal", "https://sprint-rowery.pl/");
 });
@@ -72,24 +72,30 @@ describe("Open navigation links sprint-rowery bottom menu section", () => {
 });
 
 describe("Searchers", () => {
-	it("search and go to Czapka Trek Red Patch in sprint-rowery with {enter}", () => {
+	beforeEach("Fixture", function () {
+		cy.fixture("search").then(text => {
+			this.text = text;
+		});
+	});
+
+	it("search and go to Czapka Trek Red Patch in sprint-rowery with {enter}", function () {
 		Sprint.getConfirmPopUp().click();
-		cy.get("#search").clear().type(jsonFile[0].mySearch).type("{enter}");
+		cy.get("#search").clear().type(this.text[0].mySearch).type("{enter}");
 		cy.url().should("contain", "czapka-trek-red-patch");
 	});
 
-	it("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability eq", () => {
+	it("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability eq", function () {
 		Sprint.getConfirmPopUp().click();
-		cy.get("#search").clear().type(jsonFile[1].mySearch).wait(1000);
+		cy.get("#search").clear().type(this.text[1].mySearch).wait(1000);
 		cy.get(".searchautocomplete__index-magento_catalog_product > ul > li")
 			.eq(0)
 			.click();
 		cy.url().should("contain", "czapka-trek-red-patch");
 	});
 
-	it("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability children ", () => {
+	it("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability children ", function () {
 		Sprint.getConfirmPopUp().click();
-		cy.get("#search").clear().type(jsonFile[1].mySearch).wait(1000);
+		cy.get("#search").clear().type(this.text[1].mySearch).wait(1000);
 		cy.get(".searchautocomplete__index-magento_catalog_product")
 			.children()
 			.children()
@@ -98,9 +104,9 @@ describe("Searchers", () => {
 		cy.url().should("contain", "czapka-trek-red-patch");
 	});
 
-	it.skip("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability children and eq", () => {
+	it.skip("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability children and eq", function () {
 		Sprint.getConfirmPopUp().click();
-		cy.get("#search").clear().type(jsonFile[1].mySearch).wait(1000);
+		cy.get("#search").clear().type(this.text[1].mySearch).wait(1000);
 		cy.get(".searchautocomplete__index-magento_catalog_product > ul")
 			.children()
 			.eq(0)
