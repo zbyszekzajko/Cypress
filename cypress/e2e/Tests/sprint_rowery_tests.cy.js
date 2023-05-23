@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import SprintPage from "../../support/SprintPage.js";
-import jsonFile from "../../fixtures/search.json";
+import logIn from "../../fixtures/loginSprintRowery.json";
 
 const Sprint = new SprintPage();
 
@@ -73,7 +73,7 @@ describe("Open navigation links sprint-rowery bottom menu section", () => {
 
 describe("Searchers", () => {
 	beforeEach("Fixture", function () {
-		cy.fixture("search").then(text => {
+		cy.fixture("searchSprintRowery").then(text => {
 			this.text = text;
 		});
 	});
@@ -112,5 +112,17 @@ describe("Searchers", () => {
 			.eq(0)
 			.click();
 		cy.url().should("contain", "czapka-trek-red-patch");
+	});
+});
+
+describe("Login in sprint-rowery", () => {
+	it("Login with wrong login and wrong password", () => {
+		Sprint.getConfirmPopUp().click();
+		cy.get("#signin").click();
+		cy.get("#ui-id-1 > .block").should("be.visible");
+		cy.get("#email").type(logIn.login);
+		cy.get("#pass").type(logIn.password);
+		cy.get("#send2").click();
+		cy.get("#email-error").should("be.visible");
 	});
 });
