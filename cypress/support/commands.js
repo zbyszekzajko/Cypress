@@ -23,3 +23,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("ConfirmPopUp", () => {
+	cy.get("body").then($body => {
+		if ($body.find(".cookie-allow").length > 0) {
+			cy.get(".cookie-allow").then($button => {
+				if ($button.is(":visible")) {
+					cy.wrap($button).click();
+				}
+			});
+		}
+	});
+});
