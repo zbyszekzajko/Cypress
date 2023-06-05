@@ -11,7 +11,7 @@ beforeEach("Setup", () => {
 });
 
 describe("Test check server response sprint-rowery", () => {
-	it("check status 200", () => {
+	it("TC1_1 Check status code 200", () => {
 		cy.request("www.sprint-rowery.pl").then(response => {
 			expect(response.status).to.eq(200);
 			if (response.status !== 200) {
@@ -22,19 +22,19 @@ describe("Test check server response sprint-rowery", () => {
 });
 
 describe("Test of Cookie pop-up sprint-rowery", () => {
-	it("Confirm pop-up", () => {
+	it("TC1_2 Confirm pop-up", () => {
 		Sprint.getConfirmPopUp().should("be.visible");
 		Sprint.getConfirmPopUp().click();
 		Sprint.getConfirmPopUp().should("not.be.visible");
 	});
 
-	it("Close pop-up", () => {
+	it("TC1_3 Close pop-up", () => {
 		Sprint.getClosePopUp().should("be.visible");
 		Sprint.getClosePopUp().click();
 		Sprint.getClosePopUp().should("not.be.visible");
 	});
 
-	it("More information", () => {
+	it("TC1_4 View more information", () => {
 		cy.get(".cookie-info__desc > a", { timeout: 5000 }).click();
 		cy.url().should(
 			"equal",
@@ -43,21 +43,21 @@ describe("Test of Cookie pop-up sprint-rowery", () => {
 	});
 });
 
-describe("Open navigation links sprint-rowery bottom menu section", () => {
+describe("Open navigation links on bottom menu section sprint-rowery", () => {
 	beforeEach("Close PopUp and scroll down", () => {
 		cy.ConfirmPopUp();
 		cy.scrollTo("bottom");
 	});
 
-	it("Open O nas on INFORMACIE section with click on unique selector", () => {
+	it("TC1_5 Open O nas on INFORMACIE section with click on unique selector", () => {
 		cy.get(
 			".information > .footer-section-content > .nav-links > :nth-child(1) > a"
 		).click();
 		cy.url().should("contain", "odwiedz-nasze-centrum-rowerowe");
 	});
 
-	it("Open Kontakt on INFORMACIE section with click on programmability eq and children ", () => {
-		Sprint.getNavigationLink().eq(0).children().children().eq(1).click();
+	it("TC1_6 Open Kontakt on INFORMACIE section with click on specyfic index in an array of elements", () => {
+		cy.get(".nav-links").eq(0).children().children().eq(1).click();
 		cy.url().should("contain", "contact");
 	});
 });
@@ -68,12 +68,12 @@ describe("Searches in sprint-rowery", () => {
 		cy.fixture("searchSprintRowery").as("text");
 	});
 
-	it("search and go to Czapka Trek Red Patch in sprint-rowery with {enter}", function () {
+	it("TC1_7 Search and go to Czapka Trek Red Patch in sprint-rowery with {enter}", function () {
 		cy.get("#search").clear().type(this.text[0].mySearch).type("{enter}");
 		cy.url().should("contain", this.text[0].query);
 	});
 
-	it("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability eq", function () {
+	it("TC1_8 Search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability eq", function () {
 		cy.get("#search").clear().type(this.text[1].mySearch).wait(1000);
 		cy.get(".searchautocomplete__index-magento_catalog_product > ul > li")
 			.eq(0)
@@ -81,7 +81,7 @@ describe("Searches in sprint-rowery", () => {
 		cy.url().should("contain", this.text[1].query);
 	});
 
-	it("search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability children ", function () {
+	it("TC1_9 Search and go to Czapka Trek Red Patch in sprint-rowery with click on sugestion programmability children ", function () {
 		cy.get("#search").clear().type(this.text[1].mySearch).wait(1000);
 		cy.get(".searchautocomplete__index-magento_catalog_product")
 			.children()
@@ -93,7 +93,7 @@ describe("Searches in sprint-rowery", () => {
 });
 
 describe("Login to sprint-rowery", () => {
-	it("Login with wrong login and wrong password", () => {
+	it("TC1_10 Login with wrong email", () => {
 		cy.ConfirmPopUp();
 		cy.get("#signin").click();
 		cy.get("#ui-id-1 > .block").should("be.visible");
