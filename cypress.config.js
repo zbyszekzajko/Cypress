@@ -9,8 +9,6 @@ module.exports = defineConfig({
 		chromeWebSecurity: false,
 		watchForFileChanges: false,
 		retries: 1,
-		// waitForAnimations: false,
-		// animationDistanceThreshold: 50,
 		projectId: "yy5uud",
 		setupNodeEvents(on, config) {
 			// implement node event listeners here
